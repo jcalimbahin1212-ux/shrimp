@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+  <head>
+
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+    <link rel="apple-touch-icon" href="favicon.png" />
+    <script>
+      window.addEventListener('beforeunload', function (event) {
+        event.preventDefault()
+        event.returnValue = ''
+        return 'Are you sure you want to leave? Any unsaved changes will be lost.'
+      })
+    </script>
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-WX5VS54ZDW"></script>
+    <script>
+      window.dataLayer = window.dataLayer || []
+
+      function gtag() {
+        dataLayer.push(arguments)
+      }
+      gtag('js', new Date())
+      gtag('config', 'G-WX5VS54ZDW')
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>shrimp</title>
+    <meta name="title" content="shrimp" />
+    <meta
+      name="description"
+      content="play games like crazy cattle 3d and drivemad on shrimp. fast, free, no downloads."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://gn-math.github.io/" />
+    <meta property="og:title" content="shrimp" />
+    <meta
+      property="og:description"
+      content="play games like crazy cattle 3d and drivemad on shrimp. fast, free, no downloads."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://gn-math.github.io/" />
+    <meta name="twitter:title" content="shrimp" />
+    <meta
+      name="twitter:description"
+      content="play games like crazy cattle 3d and drivemad on shrimp. fast, free, no downloads."
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#3a3a3a" />
+  </head>
+  <body class="dark-mode">
+    <header>
+      <div class="header-content">
+        <div class="logo">shrimp</div>
+        <div class="search-container">
+          <input type="text" id="searchBar" placeholder="Search zones..." oninput="debouncedFilter()" />
+          <select id="sortOptions" onchange="sortZones()">
+            <option value="name">Name</option>
+            <option value="id">ID (Date)</option>
+            <option value="popular">Popular</option>
+            <option value="trendingDay">Trending (Day)</option>
+            <option value="trendingWeek">Trending (Week)</option>
+            <option value="trendingMonth">Trending (Month)</option>
+          </select>
+          <select id="filterOptions" onchange="filterZones2()">
+            <option value="none">(SELECT TAG)</option>
+          </select>
+        </div>
+        <div class="control-buttons">
+          <button id="randomGame" class="control-button" title="Random game!" onclick="randomGame()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="1" width="22" height="22" rx="4"/><circle cx="8" cy="8" r="1.5" fill="white"/><circle cx="16" cy="8" r="1.5" fill="white"/><circle cx="8" cy="16" r="1.5" fill="white"/><circle cx="16" cy="16" r="1.5" fill="white"/><circle cx="12" cy="12" r="1.5" fill="white"/></svg>
+          </button>
+          <button id="refresh" class="control-button" title="Refresh all the zones" onclick="listZones()">
+            <img src="refresh-icon.png" alt="refresh" />
+          </button>
+          <button id="settings" class="control-button" title="Settings!">
+            <img src="setting.png" alt="settings" />
+          </button>
+        </div>
+      </div>
+    </header>
+    <main>
+      <details id="favoritesWrapper" open style="display:none">
+        <summary id="favoritesSummary" style="font-size: 1.2rem; font-weight: bold; cursor: pointer">
+          Favorites
+        </summary>
+        <div id="favoritesZones" class="zone-container"></div>
+      </details>
+      <details id="recentWrapper" open style="display:none">
+        <summary id="recentSummary" style="font-size: 1.2rem; font-weight: bold; cursor: pointer">
+          Recently Played
+        </summary>
+        <div id="recentZones" class="zone-container"></div>
+      </details>
+      <details id="featuredZonesWrapper" open>
+        <summary id="allZonesSummary" style="font-size: 1.2rem; font-weight: bold; cursor: pointer">
+          Featured Zones
+        </summary>
+        <div id="featuredZones" class="zone-container"></div>
+      </details>
+      <br />
+      <hr />
+      <br />
+      <div id="categoriesContainer"></div>
+      <details id="allZonesWrapper" open>
+        <summary id="allSummary" style="font-size: 1.2rem; font-weight: bold; cursor: pointer">All Zones</summary>
+        <div id="container">Loading...</div>
+      </details>
+    </main>
+
+    <div id="zoneViewer">
+      <div class="zone-header">
+        <div class="zone-title">
+          <h2 id="zoneName">zone</h2>
+          <button class="info-button" onclick="showZoneInfo()" title="Zone Information">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+          </button>
+          <span id="zoneId" style="display: none"></span>
+          <a id="zoneAuthor" href="#" target="_blank">by Author</a>
+        </div>
+        <div class="zone-controls">
+          <button onclick="fullscreenZone()">Fullscreen</button>
+          <button onclick="aboutBlank()">Open in New Tab</button>
+          <button onclick="downloadZone()">Download</button>
+          <button onclick="closeZone()">Close</button>
+        </div>
+      </div>
+      <iframe id="zoneFrame"></iframe>
+    </div>
+
+    <div id="popupOverlay">
+      <div class="popup">
+        <div class="popup-header">
+          <h3 id="popupTitle">Title</h3>
+          <button id="popupClose" onclick="closePopup()">×</button>
+        </div>
+        <div id="popupBody">Content will be here</div>
+      </div>
+    </div>
+    <div id="panicScreen">
+      <div class="gdocs-toolbar">
+        <div class="gdocs-toolbar-left">
+          <svg width="24" height="32" viewBox="0 0 24 32"><path d="M4 0h10l10 10v18a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4V4a4 4 0 0 1 4-4z" fill="#4285f4"/><path d="M14 0l10 10h-6a4 4 0 0 1-4-4V0z" fill="#a1c2fa"/></svg>
+          <span class="gdocs-title">Untitled document</span>
+          <div class="gdocs-menu">
+            <span>File</span><span>Edit</span><span>View</span><span>Insert</span><span>Format</span><span>Tools</span><span>Extensions</span><span>Help</span>
+          </div>
+        </div>
+        <div class="gdocs-share-btn">Share</div>
+      </div>
+      <div class="gdocs-format-bar">
+        <span>Normal text</span>
+        <span>Arial</span>
+        <span>11</span>
+        <span>B</span>
+        <span><i>I</i></span>
+        <span><u>U</u></span>
+      </div>
+      <div class="gdocs-ruler"></div>
+      <div class="gdocs-page">
+        <p>The Industrial Revolution, which began in Britain in the late 18th century, was a period of great change that transformed largely rural, agrarian societies in Europe and America into industrialized, urban ones.</p>
+        <p>&nbsp;</p>
+        <p>Before the Industrial Revolution, most people lived in small communities. Their daily lives revolved around farming and handmade goods. Manufacturing was often done in homes using hand tools or basic machines.</p>
+        <p>&nbsp;</p>
+        <p>The introduction of new manufacturing processes between about 1760 and 1840 led to a dramatic increase in production output. Key developments included:</p>
+        <p>&nbsp;</p>
+        <ul>
+          <li>The transition from hand production methods to machines</li>
+          <li>New chemical manufacturing and iron production processes</li>
+          <li>The increasing use of steam power and water power</li>
+          <li>The development of machine tools</li>
+        </ul>
+        <p>&nbsp;</p>
+        <p>The textile industry was the first to adopt these innovations, followed quickly by iron and coal mining. The effects spread throughout Western Europe and North America during the 19th century, eventually affecting most of the world.<span class="gdocs-cursor">|</span></p>
+      </div>
+    </div>
+
+    <button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+    </button>
+
+    <footer>
+      <div class="footer-links">
+        <a href="#" onclick="openSettingsToPanel('tools'); return false">Tools</a>
+        <a href="#" onclick="openSettingsToPanel('about'); return false">About</a>
+        <a
+          href="#"
+          onclick="
+            loadDMCA()
+            return false
+          "
+          >DMCA</a
+        >
+        <a
+          href="#"
+          onclick="
+            showContact()
+            return false
+          "
+          >Contact</a
+        >
+        <a
+          href="#"
+          onclick="
+            loadPrivacy()
+            return false
+          "
+          >Privacy Policy</a
+        >
+        <a href="javascript:saveData()">Export Data</a>
+        <a
+          href="#"
+          onclick="
+            document.getElementById('importData').click()
+            return false
+          "
+          >Import Data</a
+        >
+        <input type="file" id="importData" style="display: none" onchange="loadData(event)" />
+      </div>
+      <div>
+        <script type="text/javascript">
+            aclib.runBanner({
+                zoneId: '10952070',
+            });
+        </script>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+
+    <script>
+      try {
+        const search = new URLSearchParams(window.location.search)
+        const privacy = search.get('privacy')
+        if (privacy) {
+          loadPrivacy()
+        }
+      } catch (error) {}
+    </script>
+    <script>
+      navigator.serviceWorker.register(location.protocol + '//' + location.hostname + '/sw.js')
+    </script>
+  </body>
+</html>
+

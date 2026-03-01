@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="96" fill="#3a3a3a"/>
+  <g transform="translate(256,256) scale(0.75)">
+    <!-- antennae -->
+    <path d="M-40,-120 Q-80,-200 -120,-220" stroke="#fff" stroke-width="12" fill="none" stroke-linecap="round"/>
+    <path d="M-20,-120 Q0,-210 40,-240" stroke="#fff" stroke-width="12" fill="none" stroke-linecap="round"/>
+    <!-- head -->
+    <ellipse cx="-30" cy="-80" rx="55" ry="50" fill="#e0e0e0"/>
+    <!-- eye -->
+    <circle cx="-45" cy="-90" r="10" fill="#3a3a3a"/>
+    <!-- body segments -->
+    <ellipse cx="0" cy="-10" rx="60" ry="40" fill="#d0d0d0" transform="rotate(-10)"/>
+    <ellipse cx="20" cy="50" rx="55" ry="35" fill="#c8c8c8" transform="rotate(-15)"/>
+    <ellipse cx="30" cy="110" rx="45" ry="30" fill="#c0c0c0" transform="rotate(-10)"/>
+    <!-- tail fan -->
+    <path d="M30,140 Q80,180 60,210 Q30,200 20,170 Z" fill="#b8b8b8"/>
+    <path d="M20,140 Q-10,190 -20,210 Q10,200 20,170 Z" fill="#b0b0b0"/>
+    <!-- legs -->
+    <path d="M-30,-10 Q-80,20 -100,50" stroke="#d0d0d0" stroke-width="10" fill="none" stroke-linecap="round"/>
+    <path d="M-20,30 Q-70,60 -90,80" stroke="#c8c8c8" stroke-width="10" fill="none" stroke-linecap="round"/>
+    <path d="M-10,60 Q-50,90 -70,110" stroke="#c0c0c0" stroke-width="10" fill="none" stroke-linecap="round"/>
+  </g>
+</svg>

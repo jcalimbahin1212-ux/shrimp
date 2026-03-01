@@ -1,10 +1,10 @@
 {
-  "name": "gn-math",
-  "short_name": "gnmath",
+  "name": "shrimp",
+  "short_name": "shrimp",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#fb2651",
-  "theme_color": "#fb2651",
+  "background_color": "#3a3a3a",
+  "theme_color": "#3a3a3a",
   "icons": [
     {
       "src": "/favicon.png",
